@@ -33,7 +33,27 @@ This part is reponsible for creating a 3D model with a body shape that is as muc
 * Components from both Metahuman and Makehuman are planned to be used.
 
 ### 2. Clothing
-* This part is responsible for creating and applying clothing onto the 3D model, that is as physics-realistic as possible. Further research pending.
+* This part is responsible for creating and applying clothing onto the 3D model, that is as physics-realistic as possible. 
+
+There are a couple of ways that clothes are simulated.
+
+* The most simple way is to "clothes-paint" the clothes onto the model. This results in a simple illusion of wearing clothes, provided that the clothes of a tight fitting type. For looser clothes like coats, dresses and ties, this looks heavilty unrealistic.
+
+* The next way is to paint clothes but simulate the looser parts of the outfit dynamically. This provides simplicity as well as a touch of realism. Ideal for games.
+
+* The final method, which is also the method I plan to use for this project, is creating clothes as a separate physics object and simulate it using Unreal Engine's built-in clothing simulation. It's a variation of the particle system where they divide a surface into many smaller parts to generate the physics of a fabric.
+
+* Unreal also has a clothing simulator called "chaos" and it is mostly used for simulating dangling objects like the ends of a scarf.
+
+* Marvelous Designer is a professional software that designers use to design 3D models of clothes. It also comprises of a simulator that is highly accurate in generating cloth dynamics.
+
+* I have to make the collision mesh of the model the same as the static mesh.
+
+* Clothes in Unreal Engine are nothing more that 2D planes that have divisions and simulations applied to it.
+
+* We have to make sure the engine knows that it is a plane, because the internal renderer does not render planes that faces away from us. (Optimization of processing power)
+
+* TODO: I have to figure out a way to  clothe the character. Because the character's initial position and the initial position of the clothes will be different. 
 
 ### 3. Presentation
 * This part is responsible for viewing the created and clothed model in different environments and lighting conditions. This part is aimed to be as customizable as possible for the user.
