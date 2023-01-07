@@ -66,8 +66,58 @@ The weeks are numbered relative to the semester.
 * Weeks 8 - 11 : Implementing clothing system
 * Weeks 12 - 14 : Implementing the presentation component of the software
 
+# Clothes simulation
+
+There are a number of methods that are incorporated by engineers when simulating clothes. The 2 fundamental types of techniques are
+* Geometric techniques
+* Physical techniques
+
+Geometric techniques are only used when properties of clothes do not matter and only a single believable image of a cloth is needed. Since this project focuses on simulations, we will not pursue these techniques further.
+
+The other type of techniques are physical techniques. These try to simulate clothes' physical properties so that they behave like real clothes in dynamic and unpredictable environments.
+
+## Physical techniues
+
+### C. Feynman
+This method simulates cloth as a 2D grid in 3D space. Each point in the cloth grid has 3 energies associated with it. Gravitational energy, bending energy, and elasticity energy. Out of these 3, only the gravitational energy is inflicted upon itself, while the other 2 energies are provided by the surrounding points.
+
+Feynman observed that the final position of a cloth is such that all energies of all points in the cloth grid is minimal. So, in order to find the future configurations of the cloth, we can use gradient descent where we descent into lower energies until we find a minimum.
+
+### David Breen's Particle model
+One of the best ways to model cloth. Particles are generated where warp (vertical) and weft (horizontal) threads meet. And then just like Feynman's method we defin some energies for the particles and minimize them using mathematical techniques. In this method we come across,
+
+* Stretching energy - tensile strain
+* bending energy - Threads bending out of the cloth's plane
+* Trellising (shear) energy - Bending around a thread in the cloth's plane
+* Gravitational energy - by the particle's mass
+* Repelling energy - Artifical energy to keep any 2 particles seperate.
+
+The sum of all of the above is the total energy and the cloth tries to minimize the total energy.
+
+# Implementing in Unreal engine
+
+Unreal engine has already has cloth simulation implemented, but it is heavily limited due to it being a game engine, and optimization is of highest import.
+
+* Currently any skeletal mesh with enough vertices can be made into a cloth in Unreal Engine. 10000 vertices is a good number for a 2m x 2m cloth.
+
+* Cloth collision is heavily limited. Collision is only allowed with static meshes with complex collision disabled, and Physics assets of the skeletal mesh the cloth itself belongs to. So we can't make it collide with another seperate skeletal mesh.
+
+## Settings
+
+* Density
+* Bending stiffness
+* Collision thickness
+* Friction coefficient
+* Damping coefficient
+* Drag
+* Lift
+* Iteration count - The number of solver iterations.  This will increase the perceived stiffness
+* Maximum iteration count - The maximum number of solver iterations when the frame rate is lower than 60fps.
+* Subdivision count - The number of solver substeps.  This will increase the precision of the collisions.
+
 # References
 
 * [Unreal Engine 5](https://www.unrealengine.com/en-US/unreal-engine-5)
 * [Metahuman](https://metahuman.unrealengine.com/)
 * [MakeHuman](http://www.makehumancommunity.org/)
+* [Cloth modelling](https://web.archive.org/web/20070211131507/http://davis.wpi.edu/~matt/courses/cloth/)
